@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sample_1",
+    "type": "single",
+    "question": "下列哪一项属于操作系统？",
+    "options": ["Microsoft Word", "Windows", "Photoshop", "PowerPoint"],
+    "answer": ["Windows"],
+    "analysis": "Windows 是操作系统，其他选项是应用软件。",
+    "tags": ["计算机基础"]
+  },
+  {
+    "id": "sample_2",
+    "type": "multiple",
+    "question": "以下属于输入设备的是？",
+    "options": ["键盘", "显示器", "鼠标", "打印机"],
+    "answer": ["键盘", "鼠标"],
+    "analysis": "键盘和鼠标用于输入信息；显示器和打印机主要用于输出。",
+    "tags": ["计算机基础"]
+  },
+  {
+    "id": "sample_3",
+    "type": "judge",
+    "question": "HTTP 是一种应用层协议。",
+    "options": ["正确", "错误"],
+    "answer": ["正确"],
+    "analysis": "HTTP 工作在应用层，常用于网页数据传输。",
+    "tags": ["网络"]
+  },
+  {
+    "id": "sample_4",
+    "type": "blank",
+    "question": "马克思主义哲学认为，事物发展的根本原因在于事物的____。",
+    "options": [],
+    "answer": ["内部矛盾"],
+    "analysis": "内因是事物变化发展的根据。",
+    "tags": ["哲学"]
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Study Practice Helper",
+  "description": "A local question-bank practice helper for reviewing imported study questions.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "Study Practice Helper",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ]
+}

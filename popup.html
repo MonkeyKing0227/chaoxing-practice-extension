@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Study Practice Helper</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>刷题助手</h1>
+          <p id="bankSummary">未导入题库</p>
+        </div>
+        <button id="resetProgressBtn" class="icon-button" title="重置进度" aria-label="重置进度">
+          ↻
+        </button>
+      </header>
+
+      <section class="toolbar" aria-label="练习模式">
+        <button class="mode-button is-active" data-mode="all">全部</button>
+        <button class="mode-button" data-mode="wrong">错题</button>
+        <button class="mode-button" data-mode="favorite">收藏</button>
+      </section>
+
+      <section class="capture-panel">
+        <button id="saveCurrentBtn" class="primary-button">保存当前题</button>
+        <button id="saveAndNextBtn" class="secondary-button">保存并下一题</button>
+        <label class="auto-field">
+          <span>连续数量</span>
+          <input id="autoCountInput" type="number" min="1" max="500" value="50">
+        </label>
+        <button id="autoCollectBtn" class="secondary-button">开始连续采集</button>
+        <button id="stopAutoCollectBtn" class="danger-button is-hidden">停止</button>
+        <p id="captureStatus" class="capture-status" aria-live="polite"></p>
+      </section>
+
+      <section id="emptyState" class="empty-state">
+        <h2>先导入一份题库</h2>
+        <p>支持 JSON，也支持从文档里复制出来的常见题库文本。</p>
+        <div class="meta-grid">
+          <label>
+            <span>课程</span>
+            <input id="courseInput" type="text" value="马克思主义基本原理">
+          </label>
+          <label>
+            <span>学期</span>
+            <input id="semesterInput" type="text" value="2026春">
+          </label>
+        </div>
+        <textarea id="importText" placeholder="粘贴题库文本，或粘贴 JSON 数组"></textarea>
+        <div class="actions">
+          <button id="loadSampleBtn" class="secondary-button">载入示例</button>
+          <button id="extractPageBtn" class="secondary-button">读取并整理</button>
+          <button id="importBtn" class="primary-button">导入题库</button>
+        </div>
+      </section>
+
+      <section id="practiceView" class="practice-view is-hidden">
+        <div class="question-meta">
+          <span id="questionCounter">0 / 0</span>
+          <span id="questionType">题型</span>
+          <label class="jump-control">
+            <span>跳题</span>
+            <input id="jumpInput" type="number" min="1" value="1">
+            <button id="jumpBtn" type="button">跳转</button>
+          </label>
+        </div>
+
+        <div id="filterNotice" class="filter-notice is-hidden">
+          <span id="filterText"></span>
+          <button id="clearFilterBtn" type="button">清除</button>
+        </div>
+
+        <article class="question-card">
+          <h2 id="questionText"></h2>
+          <div id="questionTags" class="tag-list" aria-label="题目标签"></div>
+          <div id="optionsList" class="options-list"></div>
+          <textarea id="textAnswer" class="answer-input is-hidden" placeholder="输入你的答案"></textarea>
+        </article>
+
+        <section id="resultPanel" class="result-panel is-hidden">
+          <strong id="resultTitle"></strong>
+          <p id="answerText"></p>
+          <p id="analysisText"></p>
+        </section>
+
+        <div class="actions">
+          <button id="favoriteBtn" class="secondary-button">收藏</button>
+          <button id="checkBtn" class="primary-button">判题</button>
+          <button id="nextBtn" class="primary-button is-hidden">随机下一题</button>
+        </div>
+      </section>
+
+      <section class="analysis-panel">
+        <details open>
+          <summary>题库分析</summary>
+          <div class="analysis-actions">
+            <button id="practiceTopBtn" class="primary-button">刷高频Top100</button>
+            <button id="exportAnalysisBtn" class="secondary-button">导出分析</button>
+          </div>
+          <div id="analysisStats" class="stats-grid"></div>
+          <div class="analysis-block">
+            <h2>题型分布</h2>
+            <div id="typeAnalysis" class="bar-list"></div>
+          </div>
+          <div class="analysis-block">
+            <h2>知识点 / 标签</h2>
+            <div id="tagAnalysis" class="bar-list"></div>
+          </div>
+          <div class="analysis-block">
+            <h2>高频关键词</h2>
+            <div id="keywordAnalysis" class="keyword-list"></div>
+          </div>
+          <div class="analysis-block">
+            <h2>高频题 Top 10</h2>
+            <div id="topQuestionAnalysis" class="top-list"></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="import-panel">
+        <details>
+          <summary>管理题库</summary>
+          <textarea id="appendText" placeholder="继续粘贴题库内容"></textarea>
+          <div class="recall-box">
+            <div class="meta-grid">
+              <label>
+                <span>考试</span>
+                <input id="examTypeInput" type="text" value="期末">
+              </label>
+              <label>
+                <span>可信度</span>
+                <select id="confidenceInput">
+                  <option value="高">高</option>
+                  <option value="中" selected>中</option>
+                  <option value="低">低</option>
+                </select>
+              </label>
+            </div>
+            <textarea id="recallText" placeholder="粘贴/录入回忆题：可以只有题干关键词、选项、答案或考点。每题之间空一行。"></textarea>
+          </div>
+          <div class="actions">
+            <button id="extractAppendBtn" class="secondary-button">读取并整理</button>
+            <button id="appendBtn" class="secondary-button">追加导入</button>
+            <button id="importRecallBtn" class="secondary-button">导入回忆题</button>
+            <button id="exportDocBtn" class="secondary-button">导出文档</button>
+            <button id="exportTopBtn" class="secondary-button">导出高频Top100</button>
+            <button id="clearBankBtn" class="danger-button">清空题库</button>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
