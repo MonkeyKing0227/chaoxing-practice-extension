@@ -1049,6 +1049,16 @@ function resolveAnswer(rawAnswer, options) {
   if (!rawAnswer) return [];
   const value = String(rawAnswer).trim();
 
+  if (options.length) {
+    const exactOption = options.find((option) => option.trim() === value);
+    if (exactOption) return [exactOption];
+
+    const exactOptionText = options.find((option) => {
+      return option.replace(/^[A-Ha-h][.、．)]\s*/, "").trim() === value;
+    });
+    if (exactOptionText) return [exactOptionText];
+  }
+
   if (/^[A-Ha-h\s,，、;；|]+$/.test(value) && options.length) {
     const letters = value.match(/[A-Ha-h]/g);
     return [...new Set(letters.map((letter) => options[letter.toUpperCase().charCodeAt(0) - 65]).filter(Boolean))];
